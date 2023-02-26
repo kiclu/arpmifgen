@@ -14,6 +14,7 @@ def split_words(dump):
         tmp = line[1].split(' ')[::-1]
         cnt += len(tmp)
         line[1] = ' '.join(tmp)
+        print(line[0] + ' : ' + line[1])
     return cnt
 
 def write_mifdump(dump, filename, cnt):
@@ -28,12 +29,13 @@ def write_mifdump(dump, filename, cnt):
             out.write(addr + ' : ' + data + ';\n')
         out.write('END;\n')
 
-print(len(sys.argv))
 if len(sys.argv) != 3:
     print('Usage: python3 mifgen.py <input.mifdump> <outpud.mif>')
     exit(1)
 
+print('Input: ' + sys.argv[1])
+print('Output: ' + sys.argv[2])
 mifdump = read_mifdump(sys.argv[1])
 cnt = split_words(mifdump)
-print(mifdump)
 write_mifdump(mifdump, sys.argv[2], cnt)
+print('Done!')
